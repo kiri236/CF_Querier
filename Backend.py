@@ -27,7 +27,7 @@ class CFQuery:
     def make_request(self,method:str,params:Optional[Dict]=None)->Union[Dict,List]:
         """请求"""
         try:
-            response = self.session.get(f'{self.baseurl}{method}',params=params,timeout=10)
+            response = self.session.get(f'{self.baseurl}{method}',params=params,timeout=(10,1000))
             response.raise_for_status()
             data = response.json()
             if data['status']!='OK':
@@ -125,3 +125,26 @@ class CFQuery:
         for i in rating:
             results.append(i['newRating'])
         return results
+    def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
+        contest_status = self.contest_status(contest_id)
+        results = []
+        for status in contest_status:
+            t = status['author']['members']
+            if {'handle':user} in t:
+                submission_time = status['creationTimeSeconds']-status['author']['startTimeSeconds']
+                submission_time_str = self.convert_time(submission_time)
+                results.append(
+                    {
+                        '提交时间':submission_time_str,
+                        '题目':status['problem']['index']+'.'+status['problem']['name'],
+                        '语言':status['programmingLanguage'],
+                        '状态':'Accept' if status['verdict']=='OK' else status['verdict'],
+                        '时间':str(status['timeConsumedMillis'])+'ms',
+                        '空间占用':str(status['memoryConsumedBytes']//1000)+'KB'
+                    }
+                )
+        results.sort(key=lambda x:x['提交时间'])
+        if results:
+            return results
+        else:
+            return "找不到指定用户的提交信息"
