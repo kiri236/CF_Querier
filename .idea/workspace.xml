@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:新增查找用户在某场比赛中提交记录的功能">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[perf]:优化get_user_submission_in_contest的速度">
+      <change afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +36,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.Backend.executor": "Run",
+    "Python.FrontPage.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main"
   }
@@ -86,7 +89,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744032074664</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[perf]:优化get_user_submission_in_contest的速度">
+      <option name="closed" value="true" />
+      <created>1744032417030</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744032417030</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +128,7 @@
     <MESSAGE value="[docs]:更新readme" />
     <MESSAGE value="[feat]:新增contest_status,user_info,user_rating三个api" />
     <MESSAGE value="[feat]:新增查找用户在某场比赛中提交记录的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat]:新增查找用户在某场比赛中提交记录的功能" />
+    <MESSAGE value="[perf]:优化get_user_submission_in_contest的速度" />
+    <option name="LAST_COMMIT_MESSAGE" value="[perf]:优化get_user_submission_in_contest的速度" />
   </component>
 </project>

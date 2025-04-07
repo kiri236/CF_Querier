@@ -1,12 +1,6 @@
-from time import sleep
-
 import requests
 import datetime
-from matplotlib import pyplot as plt
 from typing import Dict, List, Optional, Union
-from requests import RequestException
-
-
 class CFQuery:
     def __init__(self):
         self.baseurl = 'https://codeforces.com/api/'
@@ -118,13 +112,11 @@ class CFQuery:
     def user_rating(self,handle:str)->List[Dict]:
         """用户rating"""
         return self.make_request('user.rating',{'handle':handle})
-    def get_ratings(self,handle:str)->List:
+    def get_ratings(self,handle:str)->Dict:
         """用户rating变化"""
         rating = self.user_rating(handle)
-        results = [rating[0]['oldRating']]
-        for i in rating:
-            results.append(i['newRating'])
-        return results
+        ratings = {self.format_time(entry['ratingUpdateTimeSeconds']):entry['newRating'] for entry in rating}
+        return ratings
     def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
         contest_status = self.contest_status(contest_id,handle=user)
         results = []
