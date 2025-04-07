@@ -2,7 +2,7 @@ from time import sleep
 
 import requests
 import datetime
-
+from matplotlib import pyplot as plt
 from typing import Dict, List, Optional, Union
 from requests import RequestException
 
@@ -96,6 +96,32 @@ class CFQuery:
             return res
         else:
             return '暂无进行中或即将开始的比赛'
-
-x = CFQuery()
-print(x.get_current_contest())
+    def contest_status(self,contest_id:int,handle:Optional[str]=None,
+                       from_:Optional[int]=None,count:Optional[int]=None)->List[Dict]:
+        """提交状态"""
+        params = {'contestId':contest_id}
+        if handle:
+            params['handle'] = handle
+        if from_:
+            params['from'] = from_
+        if count:
+            params['count'] = count
+        return self.make_request('contest.status',params)
+    def contest_rating_changes(self,contest_id:int)->List[Dict]:
+        """评分变化"""
+        return self.make_request('contest.ratingChanges',{'contestId':contest_id})
+    def user_info(self,handles:Union[str,List[str]])->List[Dict]:
+        """用户信息"""
+        if isinstance(handles,List):
+            handles = ';'.join(handles)
+        return self.make_request('user.info',{'handles':handles})
+    def user_rating(self,handle:str)->List[Dict]:
+        """用户rating"""
+        return self.make_request('user.rating',{'handle':handle})
+    def get_ratings(self,handle:str)->List:
+        """用户rating变化"""
+        rating = self.user_rating(handle)
+        results = [rating[0]['oldRating']]
+        for i in rating:
+            results.append(i['newRating'])
+        return results
