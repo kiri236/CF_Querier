@@ -1,0 +1,2 @@
+# CF_Querier
+用于查询Codeforces网站上比赛和用户相关信息
