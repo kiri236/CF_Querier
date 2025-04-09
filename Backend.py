@@ -63,7 +63,8 @@ class CFQuery:
                                 '开始时间':start_time_str,
                                 '持续时间':duration_time_str,
                                 '赛制':contest.get('type','未知赛制'),
-                                '比赛状态':'进行中' if phase == 'CODING' else f'距离比赛开始还有{rest_time_str}'
+                                '比赛状态':'进行中' if phase == 'CODING' else f'距离比赛开始还有{rest_time_str}',
+                                '比赛链接':f"[比赛链接](https://codeforces.com/contest/{str(contest.get('id'))})"
                             }
                         )
                         results.sort(key=lambda x: x['开始时间'])
@@ -78,8 +79,11 @@ class CFQuery:
             res = '# 最近的比赛'
             res+= """
             """
-            res +="""| 比赛名 | 开始时间 | 持续时间 | 赛制 | 比赛状态 |
-            |---|---|---|---|---| """
+            res += '---'
+            res += """
+            """
+            res +="""| 比赛名 | 开始时间 | 持续时间 | 赛制 | 比赛状态 | 比赛链接 |
+            |---|---|---|---|---|---| """
             res += """
             """
             for contest in contests:
@@ -87,7 +91,6 @@ class CFQuery:
                     res += "| " + str(v) + " "
                 res += """|
             """
-            print(res)
             return res
         else:
             return '暂无进行中或即将开始的比赛'

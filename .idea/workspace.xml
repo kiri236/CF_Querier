@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:修改了get_ratings函数,返回包含时间:rating的字典">
-      <change afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat&amp;chore]:加入前端查询最近比赛界面,修改查询比赛返回文本格式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
     </list>
@@ -108,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744038358128</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="[feat&amp;chore]:加入前端查询最近比赛界面,修改查询比赛返回文本格式">
+      <option name="closed" value="true" />
+      <created>1744201799141</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744201799141</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,6 +148,7 @@
     <MESSAGE value="[feat]:新增查找用户在某场比赛中提交记录的功能" />
     <MESSAGE value="[perf]:优化get_user_submission_in_contest的速度" />
     <MESSAGE value="[chore]:修改了get_ratings函数,返回包含时间:rating的字典" />
-    <option name="LAST_COMMIT_MESSAGE" value="[chore]:修改了get_ratings函数,返回包含时间:rating的字典" />
+    <MESSAGE value="[feat&amp;chore]:加入前端查询最近比赛界面,修改查询比赛返回文本格式" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat&amp;chore]:加入前端查询最近比赛界面,修改查询比赛返回文本格式" />
   </component>
 </project>
