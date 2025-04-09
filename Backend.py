@@ -66,6 +66,7 @@ class CFQuery:
                                 '比赛状态':'进行中' if phase == 'CODING' else f'距离比赛开始还有{rest_time_str}'
                             }
                         )
+                        results.sort(key=lambda x: x['开始时间'])
                 return results
         except TypeError as TE:
             raise TE
@@ -74,19 +75,19 @@ class CFQuery:
     def get_current_contest(self)->str:
         contests = self._contests_
         if contests:
-            res = ''
+            res = '# 最近的比赛'
+            res+= """
+            """
+            res +="""| 比赛名 | 开始时间 | 持续时间 | 赛制 | 比赛状态 |
+            |---|---|---|---|---| """
+            res += """
+            """
             for contest in contests:
-                tmp = ''
-                for k,v in contest.items():
-                    tmp+=k
-                    tmp+=':'
-                    if not isinstance(v,str):
-                        tmp+=str(v)
-                    else:
-                        tmp+=v
-                    tmp+=' '
-                res+=tmp
-                res+='\n'
+                for v in contest.values():
+                    res += "| " + str(v) + " "
+                res += """|
+            """
+            print(res)
             return res
         else:
             return '暂无进行中或即将开始的比赛'
