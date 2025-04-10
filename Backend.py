@@ -37,7 +37,14 @@ class CFQuery:
     @property
     def _contests_(self,gym:bool = False)->List[Dict]:
         """获取比赛列表"""
-        contests = self.make_request('contest.list',{'gym':str(gym).lower()})
+        try:
+            contests = self.make_request('contest.list',{'gym':str(gym).lower()})
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
         results = []
         try:
             if not isinstance(contests,List):
@@ -74,7 +81,16 @@ class CFQuery:
         except Exception as e:
             raise Exception(f'未知错误:{str(e)}') from e
     def get_current_contest(self)->str:
-        contests = self._contests_
+        try:
+            contests = self._contests_
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except TypeError as TE:
+            raise TE
+        except Exception as e:
+            raise e
         if contests:
             res = '# 最近的比赛'
             res+= """
@@ -104,7 +120,14 @@ class CFQuery:
             params['from'] = from_
         if count:
             params['count'] = count
-        return self.make_request('contest.status',params)
+        try:
+            return self.make_request('contest.status',params)
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
     def contest_rating_changes(self,contest_id:int)->List[Dict]:
         """评分变化"""
         return self.make_request('contest.ratingChanges',{'contestId':contest_id})
@@ -112,17 +135,45 @@ class CFQuery:
         """用户信息"""
         if isinstance(handles,List):
             handles = ';'.join(handles)
-        return self.make_request('user.info',{'handles':handles})
+        try:
+            return self.make_request('user.info',{'handles':handles})
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
     def user_rating(self,handle:str)->List[Dict]:
         """用户rating"""
-        return self.make_request('user.rating',{'handle':handle})
+        try:
+            return self.make_request('user.rating',{'handle':handle})
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
     def get_ratings(self,handle:str)->Dict:
         """用户rating变化"""
-        rating = self.user_rating(handle)
+        try:
+            rating = self.user_rating(handle)
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
         ratings = {self.format_time(entry['ratingUpdateTimeSeconds']):{'contest_Name':entry['contestName'],'rating':entry['newRating'],'delta':entry['newRating']-entry['oldRating'],'rank':entry['rank']} for entry in rating}
         return ratings
     def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
-        contest_status = self.contest_status(contest_id,handle=user)
+        try:
+            contest_status = self.contest_status(contest_id,handle=user)
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
         results = []
         for status in contest_status:
             submission_time = status['creationTimeSeconds']-status['author']['startTimeSeconds']

@@ -1,17 +1,24 @@
 import gradio as gr
 from Backend import CFQuery
-from typing import List,Dict
+from typing import List,Dict,Union
 import plotly.express as px
 import pandas as pd
+import requests
 def get_ratings(username:str,l:int,r:int)->Dict:
-    ratings = CFQuery().get_ratings(username)
+    try:
+        ratings = CFQuery().get_ratings(username)
+    except ConnectionError:
+        raise ValueError("用户名不存在")
     if (r is not None and r >= len(ratings)) or l < 0 :
         raise Exception("查询长度超出限制")
     keys = list(ratings.keys())[l:r]
     return {k[:10]:ratings[k] for k in keys}
 
 def generate_rating_data(user_name:str,l:int=0,r:int=None)->pd.DataFrame:
-    info = get_ratings(user_name,l,r)
+    try:
+        info = get_ratings(user_name,l,r)
+    except ValueError as VE :
+        raise VE
     dates = list(info.keys())
     ratings = [x['rating'] for x in info.values()]
     contests = [x['contest_Name'] for x in info.values()]
@@ -38,7 +45,16 @@ COLORS = {
     'Legendary Grandmaster':{'min':3000,'max':5000,'color':'#aa0000'}
 }
 def plot_codeforces_rating(user_name:str):
-    df = generate_rating_data(user_name)
+    try:
+        df = generate_rating_data(user_name)
+    except ValueError as ve:
+        return (
+            gr.update(visible=False),  # 隐藏图表
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 用户不存在！</p>',
+                visible=True  # 显示错误信息
+            )
+        )
     # colors = ["green" if delta >= 0 else "red" for delta in df["Delta"]]
     fig = px.line(
         df,
@@ -74,15 +90,22 @@ def plot_codeforces_rating(user_name:str):
             yaxis_range=[min_rating - 100, max_rating + 100],
             plot_bgcolor="rgba(0,0,0,0)"  # 透明背景
     )
-    return fig
-def toggle_components(user_name:str)->List:
-    return [
-        plot_codeforces_rating(user_name=user_name),
-        gr.Plot(visible=True)
-    ]
+    return (
+        gr.update(value=fig, visible=True),  # 显示图表
+        gr.update(visible=False)  # 隐藏错误信息
+    )
 if __name__ == '__main__':
     CFAPI = CFQuery()
-    with gr.Blocks() as demo:
+    custom_theme = gr.themes.Default(  # 基于默认主题修改
+        primary_hue="orange",  # 主色调
+        secondary_hue="indigo",  # 辅助色
+        font=[gr.themes.GoogleFont("Noto Sans SC"), "sans-serif"]  # 中文字体
+    ).set(
+        # 大圆角按钮
+        shadow_spread="6px",  # 阴影大小
+        checkbox_label_text_color="*primary_800"  # 文字颜色
+    )
+    with gr.Blocks(theme=custom_theme) as demo:
         with gr.Tab("查询最近比赛"):
             query_btn = gr.Button("查询最近比赛")
             text_output = gr.Markdown()
@@ -91,15 +114,16 @@ if __name__ == '__main__':
                 outputs=text_output
             )
         with gr.Tab("查询用户信息"):
-            username = gr.Textbox(label="请输入用户名",placeholder="待查询用户名")
+            username = gr.Textbox(label="请输入用户名",placeholder="待查询用户名,如tourist")
             with gr.Row():
                 user_btn = gr.Button("查询用户信息")
                 rating_btn = gr.Button("查询用户rating")
             with gr.Column():
-                plot = gr.Plot(visible=False)
+                plot = gr.Plot(visible=False,label='用户Rating')
+                error_output = gr.HTML(visible=False)
                 rating_btn.click(
-                    fn = toggle_components,
+                    fn = plot_codeforces_rating,
                     inputs= username,
-                    outputs=[plot,plot]
+                    outputs=[plot,error_output]
                 )
     demo.launch()
