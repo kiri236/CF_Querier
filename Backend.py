@@ -119,7 +119,7 @@ class CFQuery:
     def get_ratings(self,handle:str)->Dict:
         """用户rating变化"""
         rating = self.user_rating(handle)
-        ratings = {self.format_time(entry['ratingUpdateTimeSeconds']):entry['newRating'] for entry in rating}
+        ratings = {self.format_time(entry['ratingUpdateTimeSeconds']):{'contest_Name':entry['contestName'],'rating':entry['newRating'],'delta':entry['newRating']-entry['oldRating'],'rank':entry['rank']} for entry in rating}
         return ratings
     def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
         contest_status = self.contest_status(contest_id,handle=user)
