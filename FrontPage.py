@@ -3,12 +3,14 @@ from Backend import CFQuery
 from typing import List,Dict,Union
 import plotly.express as px
 import pandas as pd
-import requests
+
 def get_ratings(username:str,l:int,r:int)->Dict:
     try:
-        ratings = CFQuery().get_ratings(username)
+        ratings = CFAPI.get_ratings(username)
     except ConnectionError:
         raise ValueError("用户名不存在")
+    except ValueError:
+        raise ConnectionError("连接错误")
     if (r is not None and r >= len(ratings)) or l < 0 :
         raise Exception("查询长度超出限制")
     keys = list(ratings.keys())[l:r]
@@ -33,16 +35,16 @@ def generate_rating_data(user_name:str,l:int=0,r:int=None)->pd.DataFrame:
         "Rank":ranks
     })
 COLORS = {
-    'Newbie':{'min':0,'max':1199,'color':'#cccccc'},
-    'Pupil':{'min':1200,'max':1399,'color':'#77ff77'},
-    'Specialist':{'min':1400,'max':1599,'color':'#77ddbb'},
-    'Expert':{'min':1600,'max':1899,'color':'#aaaaff'},
-    'Candidate Master':{'min':1900,'max':2099,'color':'#ff88ff'},
-    'Master':{'min':2100,'max':2299,'color':'#ffcc88'},
-    'International Master':{'min':2300,'max':2399,'color':'#ffbb55'},
-    'Grandmaster':{'min':2400,'max':2599,'color':'#ff7777'},
-    'International Grandmaster':{'min':2600,'max':2999,'color':'#ff3333'},
-    'Legendary Grandmaster':{'min':3000,'max':5000,'color':'#aa0000'}
+    'newbie':{'min':0,'max':1199,'color':'#cccccc'},
+    'pupil':{'min':1200,'max':1399,'color':'#77ff77'},
+    'specialist':{'min':1400,'max':1599,'color':'#77ddbb'},
+    'expert':{'min':1600,'max':1899,'color':'#aaaaff'},
+    'candidate master':{'min':1900,'max':2099,'color':'#ff88ff'},
+    'master':{'min':2100,'max':2299,'color':'#ffcc88'},
+    'international master':{'min':2300,'max':2399,'color':'#ffbb55'},
+    'grandmaster':{'min':2400,'max':2599,'color':'#ff7777'},
+    'international grandmaster':{'min':2600,'max':2999,'color':'#ff3333'},
+    'legendary grandmaster':{'min':3000,'max':5000,'color':'#aa0000'}
 }
 def plot_codeforces_rating(user_name:str):
     try:
@@ -55,20 +57,38 @@ def plot_codeforces_rating(user_name:str):
                 visible=True  # 显示错误信息
             )
         )
-    # colors = ["green" if delta >= 0 else "red" for delta in df["Delta"]]
+    except ConnectionError as ce:
+        return (
+            gr.update(visible=False),  # 隐藏图表
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 网络连接错误！</p>',
+                visible=True  # 显示错误信息
+            )
+        )
+    except Exception as e:
+        raise e
     fig = px.line(
         df,
         x="Date",
         y='Rating',
         markers=True,
-        title="Codeforces Rating History",
+        title=f"Codeforces Rating History({user_name})",
         labels={"Rating": "Rating", "Date": "Contest Date"},
-        hover_data={"Contest": True, "Delta": True,"Rank":True}
+        hover_data={"Contest": True, "Delta": True,"Rank":True},
     )
     fig.update_traces(
-        line=dict(width=2),
-        marker=dict(size=8),
-        hovertemplate="<b>%{customdata[0]}</b><br>Date: %{x|%Y-%m-%d}<br>Rating: %{y}<br>Δ: %{customdata[1]}<br>Rank: %{customdata[2]}"
+        line=dict(width=1.5, color='gold'),
+        marker=dict(size=3.2, color='LightCoral'),
+        hovertemplate="<b>%{customdata[0]}</b><br>Date: %{x|%Y-%m-%d}<br>Rating: %{y}<br>Δ: %{customdata[1]}<br>Rank: %{customdata[2]}",
+        hoverlabel=dict(
+            bgcolor="#E6F3FF",  # 背景颜色（浅蓝色）
+            bordercolor="#1E90FF",  # 边框颜色（道奇蓝）
+            font=dict(
+                color="#2F4F4F",  # 字体颜色（深石板灰）
+                size=12,  # 字体大小
+                family="Arial"  # 字体类型
+            )
+        )
     )
     for level in COLORS.values():
         fig.add_shape(
@@ -94,11 +114,36 @@ def plot_codeforces_rating(user_name:str):
         gr.update(value=fig, visible=True),  # 显示图表
         gr.update(visible=False)  # 隐藏错误信息
     )
+def show_user_info(user_name:str):
+    #TODO:获取用户信息并将其渲染成图片
+    try:
+        info = CFAPI.user_info(user_name)[0]
+    except ConnectionError:
+        return (
+            gr.update(visible=False),  # 隐藏图表
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 用户不存在！</p>',
+                visible=True  # 显示错误信息
+            )
+        )
+    except ValueError:
+        return (
+            gr.update(visible=False),  # 隐藏图表
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 用户不存在网络连接错误！</p>',
+                visible=True  # 显示错误信息
+            )
+        )
+    except Exception as e:
+        raise e
+
+
 if __name__ == '__main__':
     CFAPI = CFQuery()
     custom_theme = gr.themes.Default(  # 基于默认主题修改
         primary_hue="orange",  # 主色调
         secondary_hue="indigo",  # 辅助色
+        neutral_hue='zinc',
         font=[gr.themes.GoogleFont("Noto Sans SC"), "sans-serif"]  # 中文字体
     ).set(
         # 大圆角按钮
@@ -125,5 +170,10 @@ if __name__ == '__main__':
                     fn = plot_codeforces_rating,
                     inputs= username,
                     outputs=[plot,error_output]
+                )
+                user_btn.click(
+                    fn=show_user_info,
+                    inputs=username,
+                    outputs=[plot, error_output]
                 )
     demo.launch()
