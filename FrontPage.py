@@ -1,8 +1,12 @@
 import gradio as gr
+
+import Image
 from Backend import CFQuery
 from typing import List,Dict,Union
 import plotly.express as px
 import pandas as pd
+from Image import MyDraw, hex_to_RGB
+
 
 def get_ratings(username:str,l:int,r:int)->Dict:
     try:
@@ -51,19 +55,21 @@ def plot_codeforces_rating(user_name:str):
         df = generate_rating_data(user_name)
     except ValueError as ve:
         return (
-            gr.update(visible=False),  # 隐藏图表
+            gr.update(visible=False),
             gr.update(
                 value='<p style="color: red; font-weight: bold;">❌ 用户不存在！</p>',
-                visible=True  # 显示错误信息
-            )
+                visible=True
+            ),
+            gr.update(visible=False)
         )
     except ConnectionError as ce:
         return (
-            gr.update(visible=False),  # 隐藏图表
+            gr.update(visible=False),
             gr.update(
                 value='<p style="color: red; font-weight: bold;">❌ 网络连接错误！</p>',
-                visible=True  # 显示错误信息
-            )
+                visible=True
+            ),
+            gr.update(visible=False)
         )
     except Exception as e:
         raise e
@@ -77,8 +83,8 @@ def plot_codeforces_rating(user_name:str):
         hover_data={"Contest": True, "Delta": True,"Rank":True},
     )
     fig.update_traces(
-        line=dict(width=1.5, color='gold'),
-        marker=dict(size=3.2, color='LightCoral'),
+        line=dict(width=3, color='gold'),
+        marker=dict(size=4.5, color='LightCoral'),
         hovertemplate="<b>%{customdata[0]}</b><br>Date: %{x|%Y-%m-%d}<br>Rating: %{y}<br>Δ: %{customdata[1]}<br>Rank: %{customdata[2]}",
         hoverlabel=dict(
             bgcolor="#E6F3FF",  # 背景颜色（浅蓝色）
@@ -111,32 +117,62 @@ def plot_codeforces_rating(user_name:str):
             plot_bgcolor="rgba(0,0,0,0)"  # 透明背景
     )
     return (
-        gr.update(value=fig, visible=True),  # 显示图表
-        gr.update(visible=False)  # 隐藏错误信息
+        gr.update(value=fig, visible=True),
+        gr.update(visible=False),
+        gr.update(visible=False)
     )
 def show_user_info(user_name:str):
-    #TODO:获取用户信息并将其渲染成图片
     try:
         info = CFAPI.user_info(user_name)[0]
     except ConnectionError:
         return (
-            gr.update(visible=False),  # 隐藏图表
+            gr.update(visible=False),
             gr.update(
                 value='<p style="color: red; font-weight: bold;">❌ 用户不存在！</p>',
-                visible=True  # 显示错误信息
-            )
+                visible=True
+            ),
+            gr.update(visible=False)
         )
     except ValueError:
         return (
-            gr.update(visible=False),  # 隐藏图表
+            gr.update(visible=False),
             gr.update(
-                value='<p style="color: red; font-weight: bold;">❌ 用户不存在网络连接错误！</p>',
-                visible=True  # 显示错误信息
-            )
+                value='<p style="color: red; font-weight: bold;">❌ 网络连接错误！</p>',
+                visible=True
+            ),
+            gr.update(visible=False)
         )
     except Exception as e:
         raise e
-
+    width,height = (1020,1520)
+    padding = 50
+    head_top = 320
+    head_bottom = 820
+    head = (padding,head_top,width-padding,head_bottom)
+    centerx = width/2
+    draw = MyDraw('RGBA',width,height,color=(*hex_to_RGB(COLORS[info.get('rank','newbie')]['color']),205))
+    try:
+        draw.add_drop_shadow(head)
+    except TypeError:
+        print("指定类型错误")
+    draw.draw_round_rect(head,10,fill=(*hex_to_RGB(COLORS[info.get('rank','newbie')]['color']),185))
+    icon = Image.get_img(info['titlePhoto'])
+    icon_pos = (int(centerx-icon.size[0]/2),int(head_top-icon.size[1]/2))
+    try:
+        draw.add_drop_shadow((icon_pos[0],icon_pos[1],icon_pos[0]+icon.size[0],icon_pos[1]+icon.size[1]),'circle',shadow_offsets=(5,5),shadow_blur=5)
+    except TypeError:
+        print("指定类型错误")
+    draw.add_image(icon,icon_pos,'circle')
+    text_size = 80
+    font = "C:/WINDOWS/Fonts/arial.ttf"
+    text_width,text_height = draw.get_text_size(user_name,text_size,font)
+    draw.add_text(user_name,((width-text_width)//2,icon_pos[1]+icon.size[1]-50+text_height),font,text_size)
+    ##TODO:添加maxRating和好友数
+    return (
+        gr.update(value=draw.get_img(), visible=True),
+        gr.update(visible=False),
+        gr.update(visible=False)
+    )
 
 if __name__ == '__main__':
     CFAPI = CFQuery()
@@ -166,14 +202,15 @@ if __name__ == '__main__':
             with gr.Column():
                 plot = gr.Plot(visible=False,label='用户Rating')
                 error_output = gr.HTML(visible=False)
+                img = gr.Image(label='用户信息',type='pil',visible=False)
                 rating_btn.click(
                     fn = plot_codeforces_rating,
                     inputs= username,
-                    outputs=[plot,error_output]
+                    outputs=[plot,error_output,img]
                 )
                 user_btn.click(
                     fn=show_user_info,
                     inputs=username,
-                    outputs=[plot, error_output]
+                    outputs=[img, error_output,plot]
                 )
     demo.launch()

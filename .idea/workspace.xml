@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:增加前端查询和展示用户rating曲线的功能">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色">
+      <change afterPath="$PROJECT_DIR$/Image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,17 +33,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Backend.executor": "Run",
-    "Python.FrontPage.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Anaconda/myenvs/pytorch39/Scripts/pyuic5.exe",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Backend.executor&quot;: &quot;Run&quot;,
+    &quot;Python.FrontPage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Image.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Mypyspace/Request_cf&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Mypyspace\Request_cf" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -132,7 +138,31 @@
       <option name="project" value="LOCAL" />
       <updated>1744265920238</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[fix]:后端抛出异常">
+      <option name="closed" value="true" />
+      <created>1744268966256</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1744268966256</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[feat]:增加查询用户过题数的功能">
+      <option name="closed" value="true" />
+      <created>1744337708253</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744337708253</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色">
+      <option name="closed" value="true" />
+      <created>1744344021917</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744344021917</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,6 +198,9 @@
     <MESSAGE value="[feat&amp;chore]:加入前端查询最近比赛界面,修改查询比赛返回文本格式" />
     <MESSAGE value="[chore]:添加比赛链接,优化markdown格式" />
     <MESSAGE value="[feat]:增加前端查询和展示用户rating曲线的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat]:增加前端查询和展示用户rating曲线的功能" />
+    <MESSAGE value="[fix]:后端抛出异常" />
+    <MESSAGE value="[feat]:增加查询用户过题数的功能" />
+    <MESSAGE value="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色" />
+    <option name="LAST_COMMIT_MESSAGE" value="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色" />
   </component>
 </project>
