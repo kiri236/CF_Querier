@@ -1,6 +1,9 @@
 import requests
 import datetime
-from typing import Dict, List, Optional, Union
+from collections import defaultdict
+from typing import Dict, List, Optional, Union, Tuple
+
+
 class CFQuery:
     def __init__(self):
         self.baseurl = 'https://codeforces.com/api/'
@@ -165,6 +168,48 @@ class CFQuery:
             raise e
         ratings = {self.format_time(entry['ratingUpdateTimeSeconds']):{'contest_Name':entry['contestName'],'rating':entry['newRating'],'delta':entry['newRating']-entry['oldRating'],'rank':entry['rank']} for entry in rating}
         return ratings
+    def get_user_status(self,handle:str,from_:Optional[int]=None,count:Optional[int]=None)->List[Dict]:
+        """用户提交记录"""
+        params = {'handle':handle}
+        if from_:
+            params['from'] = from_
+        if count:
+            params['count'] = count
+        try:
+            return self.make_request('user.status',params)
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
+    def count_solved_problem_by_diff(self,handle:str,from_:Optional[int]=None,count:Optional[int]=None)->Tuple[int,Dict]:
+        try:
+            submissions = self.get_user_status(handle, from_, count)
+        except ConnectionError as CE:
+            raise CE
+        except ValueError as VE:
+            raise VE
+        except Exception as e:
+            raise e
+        difficulties = defaultdict(int)
+        st = set()
+        for sub in submissions:
+            if sub.get('verdict')=='OK':
+                problem = sub.get('problem')
+                if problem:
+                    contest_id = problem.get('contestId')
+                    index = problem.get('index')
+                    if not (contest_id and index):
+                        continue
+                    problem_id = f'{contest_id}{index}'
+                    if problem_id not in st:
+                        st.add(problem_id)
+                        rating = problem.get('rating',0)
+                        if rating > 0 :
+                            diff = ((rating//100)*100)
+                            difficulties[diff]+=1
+        return len(st),dict(sorted(difficulties.items()))
     def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
         try:
             contest_status = self.contest_status(contest_id,handle=user)
