@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:在用户信息界面添加codeforces的icon">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:给webUI添加标题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744449700769</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="[chore]:给webUI添加标题">
+      <option name="closed" value="true" />
+      <created>1744450922887</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744450922887</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +248,7 @@
     <MESSAGE value="[feat]:增加显示用户maxRating和好友数的功能" />
     <MESSAGE value="[feat]:完成了用户信息界面" />
     <MESSAGE value="[feat]:在用户信息界面添加codeforces的icon" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat]:在用户信息界面添加codeforces的icon" />
+    <MESSAGE value="[chore]:给webUI添加标题" />
+    <option name="LAST_COMMIT_MESSAGE" value="[chore]:给webUI添加标题" />
   </component>
 </project>

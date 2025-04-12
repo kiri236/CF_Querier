@@ -240,7 +240,8 @@ class CFQuery:
                     '语言':status['programmingLanguage'],
                     '状态':'Accept' if status['verdict']=='OK' else status['verdict'],
                     '时间':str(status['timeConsumedMillis'])+'ms',
-                    '空间占用':str(status['memoryConsumedBytes']//1000)+'KB'
+                    '空间占用':str(status['memoryConsumedBytes']//1000)+'KB',
+                    '详细':f'https://codeforces.com/contest/{contest_id}/submission/{status['id']}'
                 }
             )
         results.sort(key=lambda x:x['提交时间'])

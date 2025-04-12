@@ -128,6 +128,7 @@ def plot_codeforces_rating(user_name:str):
 def show_user_info(user_name:str):
     try:
         info = CFAPI.user_info(user_name)[0]
+        counts, diffs = CFAPI.count_solved_problem_by_diff(user_name)
     except ConnectionError:
         return (
             gr.update(visible=False),
@@ -201,16 +202,16 @@ def show_user_info(user_name:str):
     rating_icon = Image.scale_img(rating_icon,rating_size)
     draw.add_image(rating_icon,(left_box[0]+20,left_box[1]+(left_height-rating_icon.size[1])//2-4))
     max_rating_size = 25
-    max_rating_width,max_rating_height = draw.get_text_size(f"MaxRating {info['maxRating']}",max_rating_size,font)
-    draw.add_text(f"MaxRating {info['maxRating']}",(left_box[0]+(left_width-max_rating_width)//2+35,left_box[1]+(left_height-max_rating_height)//2-6),font,max_rating_size)
+    max_rating_width,max_rating_height = draw.get_text_size(f"MaxRating {info.get('maxRating',0)}",max_rating_size,font)
+    draw.add_text(f"MaxRating {info.get('maxRating',0)}",(left_box[0]+(left_width-max_rating_width)//2+35,left_box[1]+(left_height-max_rating_height)//2-6),font,max_rating_size)
     star_size = icon_size
     star_icon = Image.get_img('resources/icons/star.png')
     star_icon = Image.scale_img(star_icon,star_size)
     star_icon = Image.brightness_enhance(star_icon,1.1)
     draw.add_image(star_icon,(right_box[0]+20,right_box[1]+(left_height-star_icon.size[1])//2-5))
     friends_size = 30
-    friends_width,friends_height = draw.get_text_size(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",friends_size,font)
-    draw.add_text(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-6),font,friends_size)
+    friends_width,friends_height = draw.get_text_size(f"{str(info.get('friendOfCount',0))} {'stars' if info.get('friendOfCount',0)>1 else 'star'}",friends_size,font)
+    draw.add_text(f"{str(info.get('friendOfCount',0))} {'stars' if info.get('friendOfCount',0)>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-6),font,friends_size)
     ver_dist = 80
     body_top = head_bottom+ver_dist
     body_height = 600
@@ -227,9 +228,9 @@ def show_user_info(user_name:str):
     content_ver_dist = 80
     content_size = 80
     level_width,_ = draw.get_text_size('Level',level_size,font)
-    _,content_height = draw.get_text_size(COLORS[info['rank']]['short'],content_size,font)
+    _,content_height = draw.get_text_size(COLORS[info.get('rank','newbie')]['short'],content_size,font)
     draw.add_text('Level',(body[0]+font_padding,body[1]+level_ver_pos),font,level_size)
-    draw.add_text(COLORS[info['rank']]['short'], (body[0]+font_padding+level_width-60, body[1] + level_ver_pos + content_ver_dist), font, content_size)
+    draw.add_text(COLORS[info.get('rank','newbie')]['short'], (body[0]+font_padding+level_width-60, body[1] + level_ver_pos + content_ver_dist), font, content_size)
     rate_size = 50
     rate_level_dist = 70
     rate_ver_pos = level_ver_pos + content_ver_dist + content_height + rate_level_dist
@@ -237,8 +238,7 @@ def show_user_info(user_name:str):
     num_ver_dist = content_ver_dist
     num_size = content_size+20
     draw.add_text('Rating',(body[0]+font_padding,body[1]+rate_ver_pos),font,rate_size)
-    draw.add_text(str(info['rating']),(body[0]+font_padding+rate_width-70,body[1]+rate_ver_pos+num_ver_dist),font,num_size)
-    counts,diffs = CFAPI.count_solved_problem_by_diff(user_name)
+    draw.add_text(str(info.get('rating',0)),(body[0]+font_padding+rate_width-70,body[1]+rate_ver_pos+num_ver_dist),font,num_size)
     solved_size = 40
     solved_ver_pos = level_ver_pos
     hor_dist = 400
@@ -346,5 +346,14 @@ if __name__ == '__main__':
                     fn=show_user_info,
                     inputs=username,
                     outputs=[img, error_output,plot]
+                )
+                gr.Examples(
+                    examples=['jiangly',
+                              'tourist',
+                              'dfs',
+                              'Benq',
+                              'kotori'
+                              ],
+                    inputs=username
                 )
     demo.launch(share=True)
