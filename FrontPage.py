@@ -147,27 +147,66 @@ def show_user_info(user_name:str):
     width,height = (1020,1520)
     padding = 50
     head_top = 320
-    head_bottom = 820
+    head_bottom = 720
     head = (padding,head_top,width-padding,head_bottom)
     centerx = width/2
-    draw = MyDraw('RGBA',width,height,color=(*hex_to_RGB(COLORS[info.get('rank','newbie')]['color']),205))
+    colors = hex_to_RGB(COLORS[info.get('rank', 'newbie')]['color'])
+    maxn = 0
+    ans = 0
+    for i,color in enumerate(colors):
+        if color > maxn:
+            maxn = color
+            ans = i
+    def get_color(x:int,y:int)->List:
+        return [(min(color + x, 255) if color > 128 else max(color-x,0)) if i == ans else min(color + y, 255) for i, color in enumerate(colors)]
+    draw = MyDraw('RGBA',width,height,color=(*get_color(60,25),255))
     try:
         draw.add_drop_shadow(head)
     except TypeError:
         print("指定类型错误")
-    draw.draw_round_rect(head,10,fill=(*hex_to_RGB(COLORS[info.get('rank','newbie')]['color']),185))
+    draw.draw_round_rect(head,25,fill=(*get_color(45,30),255))
     icon = Image.get_img(info['titlePhoto'])
+    icon = Image.scale_img(icon,256)
     icon_pos = (int(centerx-icon.size[0]/2),int(head_top-icon.size[1]/2))
     try:
         draw.add_drop_shadow((icon_pos[0],icon_pos[1],icon_pos[0]+icon.size[0],icon_pos[1]+icon.size[1]),'circle',shadow_offsets=(5,5),shadow_blur=5)
     except TypeError:
         print("指定类型错误")
     draw.add_image(icon,icon_pos,'circle')
-    text_size = 80
+    text_size = 60
     font = "C:/WINDOWS/Fonts/arial.ttf"
     text_width,text_height = draw.get_text_size(user_name,text_size,font)
-    draw.add_text(user_name,((width-text_width)//2,icon_pos[1]+icon.size[1]-50+text_height),font,text_size)
-    ##TODO:添加maxRating和好友数
+    draw.add_text(user_name,((width-text_width)//2,icon_pos[1]+icon.size[1]-30+text_height),font,text_size)
+    left_width,left_height = (300,80)
+    left_box = (padding+80,head_top+250,padding+80+left_width,head_top+250+left_height)
+    dist = 450
+    right_box = (left_box[0]+dist,left_box[1],left_box[2]+dist,left_box[3])
+    try:
+        draw.add_drop_shadow(left_box,shadow_offsets=(5,5),shadow_blur=5)
+    except TypeError:
+        print("指定类型错误")
+    draw.draw_round_rect(left_box,15,fill=(*get_color(15,25),250))
+    try:
+        draw.add_drop_shadow(right_box,shadow_offsets=(5,5),shadow_blur=5)
+    except TypeError:
+        print("指定类型错误")
+    draw.draw_round_rect(right_box, 15, fill=(*get_color(25, 25), 250))
+    icon_size = 60
+    rating_size = icon_size
+    rating_icon = Image.get_img('resources/icons/图表.png')
+    rating_icon = Image.scale_img(rating_icon,rating_size)
+    draw.add_image(rating_icon,(left_box[0]+20,left_box[1]+(left_height-rating_icon.size[1])//2-5))
+    max_rating_size = 25
+    max_rating_width,max_rating_height = draw.get_text_size(f"MaxRating {info['maxRating']}",max_rating_size,font)
+    draw.add_text(f"MaxRating {info['maxRating']}",(left_box[0]+(left_width-max_rating_width)//2+35,left_box[1]+(left_height-max_rating_height)//2-6),font,max_rating_size)
+    star_size = icon_size
+    star_icon = Image.get_img('resources/icons/star.png')
+    star_icon = Image.scale_img(star_icon,star_size)
+    star_icon = Image.brightness_enhance(star_icon,1.1)
+    draw.add_image(star_icon,(right_box[0]+20,right_box[1]+(left_height-star_icon.size[1])//2-5))
+    friends_size = 34
+    friends_width,friends_height = draw.get_text_size(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",friends_size,font)
+    draw.add_text(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-6),font,friends_size)
     return (
         gr.update(value=draw.get_img(), visible=True),
         gr.update(visible=False),
@@ -213,4 +252,4 @@ if __name__ == '__main__':
                     inputs=username,
                     outputs=[img, error_output,plot]
                 )
-    demo.launch()
+    demo.launch(share=True)

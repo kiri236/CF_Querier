@@ -4,8 +4,14 @@ import requests
 from PIL import Image,ImageDraw,ImageFont
 from typing import Tuple,List,Union
 import cv2
+import re
+from urllib.parse import urlparse
 HEX = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'a': 10, 'b': 11, 'c': 12,
            'd': 13, 'e': 14, 'f': 15}
+url_pattern = re.compile(r'^(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*/?$')
+def is_valid_url(url:str)->bool:
+    parsed = urlparse(url)
+    return bool(parsed.scheme) and bool(parsed.netloc) and url_pattern.match(url)
 def hex_to_RGB(s: str) -> List:
     s = s.lower()
     ans = []
@@ -13,12 +19,17 @@ def hex_to_RGB(s: str) -> List:
         ans.append(HEX[s[i]] * 16 + HEX[s[i + 1]])
     return ans
 def get_img(path:str)->Image.Image:
-    data = requests.get(path)
-    tmp = BytesIO(data.content)
-    x = Image.open(tmp)
+    if is_valid_url(path):
+        data = requests.get(path)
+        tmp = BytesIO(data.content)
+        x = Image.open(tmp)
+    else :
+        x = Image.open(path)
+    if path[-3:].lower() == 'png':
+        x = x.convert('RGBA')
     return x
-def scale_img(x:Image.Image,tms:int=1)->Image.Image:
-    x_resize = x.resize((tms * 100, int(x.size[1] * tms * 100 / x.size[0])))
+def scale_img(x:Image.Image,target:int=100)->Image.Image:
+    x_resize = x.resize((target, int(x.size[1] * target / x.size[0])))
     return x_resize
 def apply_mask(overlay_image:Image.Image,Type:str)->Image.Image:
     mask = Image.new('L', overlay_image.size, 0)  # 创建全黑遮罩
@@ -30,7 +41,12 @@ def apply_mask(overlay_image:Image.Image,Type:str)->Image.Image:
     else:
         raise TypeError("Type应为rect或circle")
     return mask
-
+def brightness_enhance(img:Image.Image,factor:float=1.2)->Image.Image:
+    r,g,b,a = img.split()
+    r = r.point(lambda x: min(int(x * factor), 255))
+    g = g.point(lambda x: min(int(x * factor), 255))
+    b = b.point(lambda x: min(int(x * factor), 255))
+    return Image.merge('RGBA',(r,g,b,a))
 class MyDraw:
     def __init__(self,mode:str,width:int,height:int,color=Union[Tuple,str,None]):
         self.__img__ = Image.new(mode if mode else 'RGBA',(width,height),color)
@@ -80,17 +96,25 @@ class MyDraw:
             mask = apply_mask(add_img,'circle')
         elif masked  == 'rect':
             mask = apply_mask(add_img,'rect')
-
-        self.__img__.paste(add_img,point,mask=mask)
-    def get_text_size(self,text:str,size:int,font:str)->Tuple[int,int]:
-        true_font = ImageFont.truetype(font,size)
+        if add_img.mode == 'RGBA' and masked is None:
+            self.__img__.paste(add_img,point,mask=add_img.split()[3])
+        else:
+            self.__img__.paste(add_img,point,mask=mask)
+    def get_text_size(self,text:str,size:int,font:Union[str,None]=None)->Tuple[int,int]:
+        if font:
+            true_font = ImageFont.truetype(font,size)
+        else:
+            true_font = None
         bbox = self.__draw__.textbbox((0,0),text,font=true_font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
         self.refresh()
         return text_width,text_height
-    def add_text(self,text:str,point:Tuple[float,float],font:str,size:int=10,fill:Union[Tuple, str]='white'):
-        true_font = ImageFont.truetype(font,size)
+    def add_text(self,text:str,point:Tuple[float,float],font:Union[str,None]=None,size:int=10,fill:Union[Tuple, str]='white'):
+        if font:
+            true_font = ImageFont.truetype(font,size)
+        else:
+            true_font = None
         self.__draw__.text(point,text,fill=fill,font=true_font)
         self.refresh()
     def get_img(self)->Image.Image:

@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色">
-      <change afterPath="$PROJECT_DIR$/Image.py" afterDir="false" />
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:添加了显示用户信息的功能">
+      <change afterPath="$PROJECT_DIR$/resources/icons/star.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/icons/图表.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +50,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Mypyspace\Request_cf" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Mypyspace\Request_cf\resources\icons" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -162,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744344021917</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="[feat]:添加了显示用户信息的功能">
+      <option name="closed" value="true" />
+      <created>1744380144184</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744380144184</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,6 +214,7 @@
     <MESSAGE value="[fix]:后端抛出异常" />
     <MESSAGE value="[feat]:增加查询用户过题数的功能" />
     <MESSAGE value="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色" />
-    <option name="LAST_COMMIT_MESSAGE" value="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色" />
+    <MESSAGE value="[feat]:添加了显示用户信息的功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat]:添加了显示用户信息的功能" />
   </component>
 </project>
