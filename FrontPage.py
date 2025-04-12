@@ -354,6 +354,9 @@ if __name__ == '__main__':
                               'Benq',
                               'kotori'
                               ],
-                    inputs=username
+                    fn=show_user_info,
+                    inputs=username,
+                    outputs=[img, error_output,plot],
+                    run_on_click=True
                 )
     demo.launch(share=True)
