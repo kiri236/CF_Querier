@@ -231,8 +231,8 @@ class CFQuery:
             raise e
         results = []
         for status in contest_status:
-            submission_time = status['creationTimeSeconds']-status['author']['startTimeSeconds']
-            submission_time_str = self.convert_time(submission_time)
+            submission_time = status['creationTimeSeconds']
+            submission_time_str = self.format_time(submission_time)
             results.append(
                 {
                     '提交时间':submission_time_str,
@@ -241,7 +241,7 @@ class CFQuery:
                     '状态':'Accept' if status['verdict']=='OK' else status['verdict'],
                     '时间':str(status['timeConsumedMillis'])+'ms',
                     '空间占用':str(status['memoryConsumedBytes']//1000)+'KB',
-                    '详细':f'https://codeforces.com/contest/{contest_id}/submission/{status['id']}'
+                    '详细':f'[详细信息](https://codeforces.com/contest/{contest_id}/submission/{status['id']})'
                 }
             )
         results.sort(key=lambda x:x['提交时间'])

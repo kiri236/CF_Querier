@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[fix&amp;chore]:修复了获取用户信息时无对应key的错误,添加了获取用户在比赛中提交的代码链接">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:增加了查询用户信息界面点击示例后自动填充并自动获取用户信息的功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,20 +33,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Backend.executor&quot;: &quot;Run&quot;,
-    &quot;Python.FrontPage.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Image.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Mypyspace/Request_cf&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Backend.executor": "Run",
+    "Python.FrontPage.executor": "Run",
+    "Python.Image.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Mypyspace/Request_cf/resources/webdriver",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Mypyspace\Request_cf\resources\webdriver" />
       <recent name="D:\Mypyspace\Request_cf" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -212,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744457365077</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="[feat]:增加了查询用户信息界面点击示例后自动填充并自动获取用户信息的功能">
+      <option name="closed" value="true" />
+      <created>1744457965367</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1744457965367</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -257,6 +267,7 @@
     <MESSAGE value="[feat]:在用户信息界面添加codeforces的icon" />
     <MESSAGE value="[chore]:给webUI添加标题" />
     <MESSAGE value="[fix&amp;chore]:修复了获取用户信息时无对应key的错误,添加了获取用户在比赛中提交的代码链接" />
-    <option name="LAST_COMMIT_MESSAGE" value="[fix&amp;chore]:修复了获取用户信息时无对应key的错误,添加了获取用户在比赛中提交的代码链接" />
+    <MESSAGE value="[feat]:增加了查询用户信息界面点击示例后自动填充并自动获取用户信息的功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat]:增加了查询用户信息界面点击示例后自动填充并自动获取用户信息的功能" />
   </component>
 </project>

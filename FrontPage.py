@@ -285,6 +285,54 @@ def show_user_info(user_name:str):
         gr.update(visible=False),
         gr.update(visible=False)
     )
+def get_user_submission(contest_id:int,user_name:str):
+    try:
+        submissions = CFAPI.get_user_submission_in_contest(contest_id,user_name)
+    except ConnectionError:
+        return (
+            gr.update(visible=False),
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 无法查看该比赛！</p>',
+                visible=True
+            )
+        )
+    except ValueError:
+        return (
+            gr.update(visible=False),
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 网络连接错误！</p>',
+                visible=True
+            )
+        )
+    except Exception as e:
+        raise e
+    res = f'# 用户{user_name}的提交'
+    res += """
+    """
+    res += '---'
+    res += """
+    """
+    res += """| 提交时间 | 题目 | 语言 | 状态 | 时间 | 空间占用 | 详细信息 |
+    |---|---|---|---|---|---|---| """
+    res += """
+    """
+    if isinstance(submissions,str):
+        return (
+            gr.update(visible=False),
+            gr.update(
+                value='<p style="color: red; font-weight: bold;">❌ 用户或比赛信息有误！</p>',
+                visible=True
+            )
+        )
+    for submission in submissions:
+        for v in submission.values():
+            res += "| " + str(v) + " "
+        res += """|
+    """
+    return (
+        gr.update(value=res, visible=True),
+        gr.update(visible=False)
+    )
 
 if __name__ == '__main__':
     CFAPI = CFQuery()
@@ -357,6 +405,30 @@ if __name__ == '__main__':
                     fn=show_user_info,
                     inputs=username,
                     outputs=[img, error_output,plot],
+                    run_on_click=True
+                )
+        with gr.Tab("查询用户在比赛中的提交"):
+            with gr.Row():
+                contest_text = gr.Textbox(label="比赛id",placeholder="待查询比赛id,如2092")
+                user_name_text = gr.Textbox(label='用户名',placeholder='待查询用户名,如Tourist')
+            with gr.Column():
+                user_in_contest_btn = gr.Button("查询用户在指定比赛中的提交")
+                submissions = gr.Markdown(visible=False)
+                error_output = gr.HTML(visible=False)
+                user_in_contest_btn.click(
+                    fn = get_user_submission,
+                    inputs=[contest_text,user_name_text],
+                    outputs=[submissions,error_output]
+                )
+                examples = gr.Examples(
+                    examples=[
+                        ["2084","tourist"],
+                        ["2074","jiangly"],
+                        ['2034','Benq']
+                    ],
+                    fn=get_user_submission,
+                    inputs=[contest_text, user_name_text],
+                    outputs=[submissions, error_output],
                     run_on_click=True
                 )
     demo.launch(share=True)
