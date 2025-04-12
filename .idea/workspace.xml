@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:增加了查询用户在指定比赛中提交记录的功能">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:更新项目需求">
+      <change afterPath="$PROJECT_DIR$/resources/icons/icons8-codeforces-96.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -229,7 +230,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744470420185</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="[chore]:生成项目需求">
+      <option name="closed" value="true" />
+      <created>1744472144343</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1744472144343</updated>
+    </task>
+    <task id="LOCAL-00022" summary="[chore]:更新项目需求">
+      <option name="closed" value="true" />
+      <created>1744472295367</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1744472295367</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -276,6 +293,8 @@
     <MESSAGE value="[fix&amp;chore]:修复了获取用户信息时无对应key的错误,添加了获取用户在比赛中提交的代码链接" />
     <MESSAGE value="[feat]:增加了查询用户信息界面点击示例后自动填充并自动获取用户信息的功能" />
     <MESSAGE value="[feat]:增加了查询用户在指定比赛中提交记录的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat]:增加了查询用户在指定比赛中提交记录的功能" />
+    <MESSAGE value="[chore]:生成项目需求" />
+    <MESSAGE value="[chore]:更新项目需求" />
+    <option name="LAST_COMMIT_MESSAGE" value="[chore]:更新项目需求" />
   </component>
 </project>
