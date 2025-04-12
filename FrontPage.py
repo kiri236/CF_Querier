@@ -6,8 +6,11 @@ from typing import List,Dict,Union
 import plotly.express as px
 import pandas as pd
 from Image import MyDraw, hex_to_RGB
+import base64
 
-
+def image_to_base64(img_path:str)->str:
+    with open(img_path, "rb") as f:
+        return f"data:image/png;base64,{base64.b64encode(f.read()).decode()}"
 def get_ratings(username:str,l:int,r:int)->Dict:
     try:
         ratings = CFAPI.get_ratings(username)
@@ -295,7 +298,29 @@ if __name__ == '__main__':
         shadow_spread="6px",  # 阴影大小
         checkbox_label_text_color="*primary_800"  # 文字颜色
     )
-    with gr.Blocks(theme=custom_theme) as demo:
+    logo_base64 = image_to_base64("resources/icons/icons8-codeforces-48.png")
+    with gr.Blocks(theme=custom_theme,css="""
+.title-container {
+    padding: 20px 0;
+    border-bottom: 2px;
+    margin-bottom: 30px;
+}
+""") as demo:
+        gr.HTML(f"""
+            <div class="title-container">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-left: 20px;
+                ">
+                    <img src="{logo_base64}" 
+                         style="width: 40px; height: 40px; object-fit: contain;">
+                    <h1 style="margin: 0; font-family: 'Microsoft Yahei'; 
+                               color: white;">Codeforces Querier</h1>
+                </div>
+            </div>
+            """)
         with gr.Tab("查询最近比赛"):
             query_btn = gr.Button("查询最近比赛")
             text_output = gr.Markdown()
