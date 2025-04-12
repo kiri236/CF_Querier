@@ -8,6 +8,7 @@
 
 ![python](https://img.shields.io/badge/Python->=3.10-blue)
 ![Overleaf](https://img.shields.io/badge/Gradio-5.24.0-gold)
+![requests](https://img.shields.io/badge/requests-2.32.3-orange)
 </div>
 
 <div align=center>
