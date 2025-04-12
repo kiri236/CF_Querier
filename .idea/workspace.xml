@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:更新项目需求">
-      <change afterPath="$PROJECT_DIR$/resources/icons/icons8-codeforces-96.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[docs]:更新readme">
+      <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744472295367</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="[docs]:更新readme">
+      <option name="closed" value="true" />
+      <created>1744473643425</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1744473643425</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,7 +280,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init commit" />
-    <MESSAGE value="[docs]:更新readme" />
     <MESSAGE value="[feat]:新增contest_status,user_info,user_rating三个api" />
     <MESSAGE value="[feat]:新增查找用户在某场比赛中提交记录的功能" />
     <MESSAGE value="[perf]:优化get_user_submission_in_contest的速度" />
@@ -295,6 +300,7 @@
     <MESSAGE value="[feat]:增加了查询用户在指定比赛中提交记录的功能" />
     <MESSAGE value="[chore]:生成项目需求" />
     <MESSAGE value="[chore]:更新项目需求" />
-    <option name="LAST_COMMIT_MESSAGE" value="[chore]:更新项目需求" />
+    <MESSAGE value="[docs]:更新readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="[docs]:更新readme" />
   </component>
 </project>
