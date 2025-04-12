@@ -65,6 +65,26 @@ class MyDraw:
         self.__draw__.rectangle((x0 + r / 2, y0, x1 - r / 2, y1), fill=fill)
         self.__draw__.rectangle((x0, y0 + r / 2, x1, y1 - r / 2), fill=fill)
         self.refresh()
+    def draw_rounded_line(self,box:Union[Tuple,List],width:int,fill:Union[Tuple, str, None]='white'):
+        start, end = (box[0], box[1]), (box[2], box[3])
+        assert end>=start,"end must be greater than start"
+        self.__draw__.line([start,end],fill=fill,width=width)
+        radius = width//2-1
+        start_bbox = (
+        start[0] - radius,
+        start[1] - radius,
+        start[0] + radius,
+        start[1] + radius
+        )
+        self.__draw__.ellipse(start_bbox,fill)
+        end_bbox =  (
+            end[0] - radius,
+            end[1] - radius,
+            end[0] + radius,
+            end[1] + radius
+        )
+        self.__draw__.ellipse(end_bbox,fill)
+        self.refresh()
     def add_drop_shadow(self,box: Union[List, Tuple],Type:str='rect', shadow_offsets: Tuple = (10, 10)
                         , shadow_blur: int = 10, shadow_color: Union[Tuple, str] = (0, 0, 0, 100)):
         shadow_layer = Image.new("RGBA", self.__img__.size, (0, 0, 0, 0))

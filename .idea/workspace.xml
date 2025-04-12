@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:添加了显示用户信息的功能">
-      <change afterPath="$PROJECT_DIR$/resources/icons/star.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/icons/图表.png" afterDir="false" />
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[feat]:增加显示用户maxRating和好友数的功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image.py" afterDir="false" />
     </list>
@@ -175,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744380144184</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[feat]:增加显示用户maxRating和好友数的功能">
+      <option name="closed" value="true" />
+      <created>1744428111235</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1744428111236</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -215,6 +222,7 @@
     <MESSAGE value="[feat]:增加查询用户过题数的功能" />
     <MESSAGE value="[chore]:更改rating曲线颜色和描点颜色,更改悬浮框颜色" />
     <MESSAGE value="[feat]:添加了显示用户信息的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat]:添加了显示用户信息的功能" />
+    <MESSAGE value="[feat]:增加显示用户maxRating和好友数的功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat]:增加显示用户maxRating和好友数的功能" />
   </component>
 </project>

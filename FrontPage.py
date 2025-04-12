@@ -39,16 +39,17 @@ def generate_rating_data(user_name:str,l:int=0,r:int=None)->pd.DataFrame:
         "Rank":ranks
     })
 COLORS = {
-    'newbie':{'min':0,'max':1199,'color':'#cccccc'},
-    'pupil':{'min':1200,'max':1399,'color':'#77ff77'},
-    'specialist':{'min':1400,'max':1599,'color':'#77ddbb'},
-    'expert':{'min':1600,'max':1899,'color':'#aaaaff'},
-    'candidate master':{'min':1900,'max':2099,'color':'#ff88ff'},
-    'master':{'min':2100,'max':2299,'color':'#ffcc88'},
-    'international master':{'min':2300,'max':2399,'color':'#ffbb55'},
-    'grandmaster':{'min':2400,'max':2599,'color':'#ff7777'},
-    'international grandmaster':{'min':2600,'max':2999,'color':'#ff3333'},
-    'legendary grandmaster':{'min':3000,'max':5000,'color':'#aa0000'}
+    'newbie':{'min':0,'max':1199,'color':'#cccccc','short':'Newbie'},
+    'pupil':{'min':1200,'max':1399,'color':'#77ff77','short':'Pupil'},
+    'specialist':{'min':1400,'max':1599,'color':'#77ddbb','short':'Specialist'},
+    'expert':{'min':1600,'max':1899,'color':'#aaaaff','short':'Expert'},
+    'candidate master':{'min':1900,'max':2099,'color':'#ff88ff','short':'CM'},
+    'master':{'min':2100,'max':2299,'color':'#ffcc88','short':'Master'},
+    'international master':{'min':2300,'max':2399,'color':'#ffbb55','short':'IM'},
+    'grandmaster':{'min':2400,'max':2599,'color':'#ff7777','short':'GM'},
+    'international grandmaster':{'min':2600,'max':2999,'color':'#ff3333','short':'IGM'},
+    'legendary grandmaster':{'min':3000,'max':3999,'color':'#aa0000','short':'LGM'},
+    'tourist':{'min':4000,'max':6000,'color':'#aa0000','short':'Tourist'}
 }
 def plot_codeforces_rating(user_name:str):
     try:
@@ -164,7 +165,7 @@ def show_user_info(user_name:str):
         draw.add_drop_shadow(head)
     except TypeError:
         print("指定类型错误")
-    draw.draw_round_rect(head,25,fill=(*get_color(45,30),255))
+    draw.draw_round_rect(head,25,fill=(*get_color(45,30),250))
     icon = Image.get_img(info['titlePhoto'])
     icon = Image.scale_img(icon,256)
     icon_pos = (int(centerx-icon.size[0]/2),int(head_top-icon.size[1]/2))
@@ -185,17 +186,17 @@ def show_user_info(user_name:str):
         draw.add_drop_shadow(left_box,shadow_offsets=(5,5),shadow_blur=5)
     except TypeError:
         print("指定类型错误")
-    draw.draw_round_rect(left_box,15,fill=(*get_color(15,25),250))
+    draw.draw_round_rect(left_box,15,fill=(*get_color(15,25),245))
     try:
         draw.add_drop_shadow(right_box,shadow_offsets=(5,5),shadow_blur=5)
     except TypeError:
         print("指定类型错误")
-    draw.draw_round_rect(right_box, 15, fill=(*get_color(25, 25), 250))
+    draw.draw_round_rect(right_box, 15, fill=(*get_color(25, 25), 245))
     icon_size = 60
     rating_size = icon_size
     rating_icon = Image.get_img('resources/icons/图表.png')
     rating_icon = Image.scale_img(rating_icon,rating_size)
-    draw.add_image(rating_icon,(left_box[0]+20,left_box[1]+(left_height-rating_icon.size[1])//2-5))
+    draw.add_image(rating_icon,(left_box[0]+20,left_box[1]+(left_height-rating_icon.size[1])//2-4))
     max_rating_size = 25
     max_rating_width,max_rating_height = draw.get_text_size(f"MaxRating {info['maxRating']}",max_rating_size,font)
     draw.add_text(f"MaxRating {info['maxRating']}",(left_box[0]+(left_width-max_rating_width)//2+35,left_box[1]+(left_height-max_rating_height)//2-6),font,max_rating_size)
@@ -204,9 +205,67 @@ def show_user_info(user_name:str):
     star_icon = Image.scale_img(star_icon,star_size)
     star_icon = Image.brightness_enhance(star_icon,1.1)
     draw.add_image(star_icon,(right_box[0]+20,right_box[1]+(left_height-star_icon.size[1])//2-5))
-    friends_size = 34
+    friends_size = 30
     friends_width,friends_height = draw.get_text_size(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",friends_size,font)
     draw.add_text(f"{str(info['friendOfCount'])} {'stars' if info['friendOfCount']>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-6),font,friends_size)
+    ver_dist = 80
+    body_top = head_bottom+ver_dist
+    body_height = 600
+    body_bottom = body_top + body_height
+    body = (padding,body_top,width-padding,body_bottom)
+    try:
+        draw.add_drop_shadow(body)
+    except TypeError:
+        print("指定类型错误")
+    draw.draw_round_rect(body,25,fill=(*get_color(45,30),250))
+    font_padding = 70
+    level_size = 50
+    level_ver_pos = 60
+    content_ver_dist = 80
+    content_size = 80
+    level_width,_ = draw.get_text_size('Level',level_size,font)
+    _,content_height = draw.get_text_size(COLORS[info['rank']]['short'],content_size,font)
+    draw.add_text('Level',(body[0]+font_padding,body[1]+level_ver_pos),font,level_size)
+    draw.add_text(COLORS[info['rank']]['short'], (body[0]+font_padding+level_width-60, body[1] + level_ver_pos + content_ver_dist), font, content_size)
+    rate_size = 50
+    rate_level_dist = 70
+    rate_ver_pos = level_ver_pos + content_ver_dist + content_height + rate_level_dist
+    rate_width,_ = draw.get_text_size('Rating',rate_size,font)
+    num_ver_dist = content_ver_dist
+    num_size = content_size+20
+    draw.add_text('Rating',(body[0]+font_padding,body[1]+rate_ver_pos),font,rate_size)
+    draw.add_text(str(info['rating']),(body[0]+font_padding+rate_width-70,body[1]+rate_ver_pos+num_ver_dist),font,num_size)
+    counts,diffs = CFAPI.count_solved_problem_by_diff(user_name)
+    solved_size = 40
+    solved_ver_pos = level_ver_pos
+    hor_dist = 400
+    total_width = 400
+    total_height = 10
+    solved_800_dist = 20
+    line_space = solved_800_dist
+    right_x = body[0]+font_padding+hor_dist
+    right_y = body[1]+solved_ver_pos
+    _,solved_height = draw.get_text_size(f'solved {counts} problems',solved_size,font)
+    draw.add_text(f'solved {counts} problems',(right_x,right_y),font,solved_size)
+    right_y += solved_height+line_space
+    for diff in diffs.items():
+        rank,pbm = diff
+        rank_size = 50
+        _,rank_height = draw.get_text_size(f'{str(rank)} +',rank_size,font)
+        draw.add_text(f'{str(rank)} +',(right_x,right_y),font,rank_size)
+        right_margin = right_x + total_width
+        ratio_size = rank_size
+        try:
+            ratio = pbm/counts
+        except ZeroDivisionError:
+            ratio = 0
+        ratio_width,_ = draw.get_text_size(f'{ratio*100:.1f}%',ratio_size,font)
+        draw.add_text(f'{ratio*100:.1f}%',(right_margin-ratio_width,right_y),font,ratio_size)
+        line_space = 40
+        right_y += rank_height+line_space
+        draw.draw_rounded_line((right_x,right_y,right_x+total_width*ratio,right_y),total_height,fill='white')
+        line_space = 20
+        right_y += total_height+line_space
     return (
         gr.update(value=draw.get_img(), visible=True),
         gr.update(visible=False),

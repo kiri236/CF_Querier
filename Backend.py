@@ -207,9 +207,19 @@ class CFQuery:
                         st.add(problem_id)
                         rating = problem.get('rating',0)
                         if rating > 0 :
-                            diff = ((rating//100)*100)
-                            difficulties[diff]+=1
-        return len(st),dict(sorted(difficulties.items()))
+                            if rating > 2600:
+                                difficulties[2600]+=1
+                            elif rating > 2000:
+                                difficulties[2000]+=1
+                            elif rating > 1400:
+                                difficulties[1400]+=1
+                            elif rating > 800:
+                                difficulties[800]+=1
+        res = dict(sorted(difficulties.items()))
+        for i in range(800,2601,600):
+            if not i in res:
+                res[i] = 0
+        return len(st),res
     def get_user_submission_in_contest(self,contest_id:int,user:str)->Union[List[Dict],str]:
         try:
             contest_status = self.contest_status(contest_id,handle=user)
