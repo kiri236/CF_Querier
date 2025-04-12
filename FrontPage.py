@@ -266,6 +266,17 @@ def show_user_info(user_name:str):
         draw.draw_rounded_line((right_x,right_y,right_x+total_width*ratio,right_y),total_height,fill='white')
         line_space = 20
         right_y += total_height+line_space
+    forces_size = 30
+    forces_width,_=draw.get_text_size('Forces',forces_size,font)
+    now_x = width-forces_width-20
+    draw.add_text('Forces',(now_x,10),font,forces_size,fill='DodgerBlue')
+    code_size = forces_size
+    code_width,_=draw.get_text_size('Code',code_size,font)
+    now_x -= code_width
+    draw.add_text('Code',(now_x,10),font,code_size)
+    cf_icon = Image.get_img('resources/icons/icons8-codeforces-48.png')
+    now_x -= cf_icon.size[0]+5
+    draw.add_image(cf_icon,(now_x,0))
     return (
         gr.update(value=draw.get_img(), visible=True),
         gr.update(visible=False),
