@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[docs]:更新readme">
+    <list default="true" id="ad91a46f-763d-4ee0-b3f1-a6a7c2cbd4b2" name="更改" comment="[chore]:更改提示信息">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/FrontPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,20 +31,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Backend.executor&quot;: &quot;Run&quot;,
-    &quot;Python.FrontPage.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Image.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Mypyspace/Request_cf/resources/webdriver&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Backend.executor": "Run",
+    "Python.FrontPage.executor": "Run",
+    "Python.Image.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Mypyspace/Request_cf/resources/Fonts",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Mypyspace\Request_cf\resources\Fonts" />
       <recent name="D:\Mypyspace\Request_cf\resources\webdriver" />
       <recent name="D:\Mypyspace\Request_cf" />
     </key>
@@ -277,7 +277,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744527352151</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="[chore]:更新了用户信息图中使用的字体">
+      <option name="closed" value="true" />
+      <created>1744529112646</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1744529112646</updated>
+    </task>
+    <task id="LOCAL-00028" summary="[chore]:更改提示信息">
+      <option name="closed" value="true" />
+      <created>1744529378545</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1744529378545</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,6 +342,8 @@
     <MESSAGE value="[chore]:生成项目需求" />
     <MESSAGE value="[chore]:更新项目需求" />
     <MESSAGE value="[docs]:更新readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="[docs]:更新readme" />
+    <MESSAGE value="[chore]:更新了用户信息图中使用的字体" />
+    <MESSAGE value="[chore]:更改提示信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="[chore]:更改提示信息" />
   </component>
 </project>
