@@ -179,9 +179,9 @@ def show_user_info(user_name:str):
         print("指定类型错误")
     draw.add_image(icon,icon_pos,'circle')
     text_size = 60
-    font = "C:/WINDOWS/Fonts/arial.ttf"
+    font = "resources/Fonts/segoeui.ttf"
     text_width,text_height = draw.get_text_size(user_name,text_size,font)
-    draw.add_text(user_name,((width-text_width)//2,icon_pos[1]+icon.size[1]-30+text_height),font,text_size)
+    draw.add_text(user_name,((width-text_width)//2,icon_pos[1]+icon.size[1]-35+text_height),font,text_size)
     left_width,left_height = (300,80)
     left_box = (padding+80,head_top+250,padding+80+left_width,head_top+250+left_height)
     dist = 450
@@ -211,7 +211,7 @@ def show_user_info(user_name:str):
     draw.add_image(star_icon,(right_box[0]+20,right_box[1]+(left_height-star_icon.size[1])//2-5))
     friends_size = 30
     friends_width,friends_height = draw.get_text_size(f"{str(info.get('friendOfCount',0))} {'stars' if info.get('friendOfCount',0)>1 else 'star'}",friends_size,font)
-    draw.add_text(f"{str(info.get('friendOfCount',0))} {'stars' if info.get('friendOfCount',0)>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-6),font,friends_size)
+    draw.add_text(f"{str(info.get('friendOfCount',0))} {'stars' if info.get('friendOfCount',0)>1 else 'star'}",(right_box[0]+(left_width-friends_width)//2+35,right_box[1]+(left_height-friends_height)//2-10),font,friends_size)
     ver_dist = 80
     body_top = head_bottom+ver_dist
     body_height = 600
