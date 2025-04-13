@@ -410,7 +410,7 @@ if __name__ == '__main__':
         with gr.Tab("查询用户在比赛中的提交"):
             with gr.Row():
                 contest_text = gr.Textbox(label="比赛id",placeholder="待查询比赛id,如2092")
-                user_name_text = gr.Textbox(label='用户名',placeholder='待查询用户名,如Tourist')
+                user_name_text = gr.Textbox(label='用户名',placeholder='待查询用户名,如tourist')
             with gr.Column():
                 user_in_contest_btn = gr.Button("查询用户在指定比赛中的提交")
                 submissions = gr.Markdown(visible=False)
