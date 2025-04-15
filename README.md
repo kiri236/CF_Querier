@@ -55,6 +55,25 @@ CLI输出
 |获取用户信息|返回用户基础信息|用户信息以实时渲染的图片呈现|
 |获取用户rating|返回用户rating图表||
 |查询用户在指定比赛中的提交|返回用户的提交信息||
+
+## 🌰使用示例
+
+--- 
+### 查询最近比赛
+首先来到主页面
+![img.png](resources/example/contest_info.png)
+点击`查询最近比赛`即可看到最近的比赛信息
+![img.png](resources/example/recent_contest.png)
+### 查询用户信息
+点击侧栏查询用户信息,输入用户名点击`查询用户信息`即可得到含有用户基本信息的一张图片
+![img.png](resources/example/user_info.png)![img.png](resources/example/user_info1.png)
+点击`查询用户rating`即可查询用户rating的变化表
+![img.png](resources/example/rating.png)
+
+### 查询用户在指定比赛中的提交
+点击侧边栏查询用户在比赛中的提交,输入比赛id(不是比赛名)和用户名,点击`查询用户在指定比赛中的提交`即可查看用户在指定比赛中的提交
+![img.png](resources/example/submission.png)
+
 ## ✅ TODO
 
 ---

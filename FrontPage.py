@@ -2,7 +2,7 @@ import gradio as gr
 
 import Image
 from Backend import CFQuery
-from typing import List,Dict,Union
+from typing import List,Dict
 import plotly.express as px
 import pandas as pd
 from Image import MyDraw, hex_to_RGB
